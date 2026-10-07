@@ -10,26 +10,31 @@ def retrieve_alpha(capital, small):
         small.append(a)
         i += 1
 
-def retrieve_name(capital, small, name):
+def retrieve_name(capital, small, name, wanted):
     retrieve_alpha(capital, small)
 
-    for i in range(len(capital)):
-        if chr(capital[i]) == 'L':
-            name.append(capital[i])
-        if chr(small[i]) == 'u':
-            name.append(small[i])
-            name.append(small[i])
-        if chr(small[i]) == 'k':
-            name.append(small[i])
+    for letter in wanted:
+        for i in range(len(capital)):
+        
+            if chr(capital[i]) == letter:
+                name.append(capital[i])
+                break
+        
+            if chr(small[i]) == letter:
+                name.append(small[i])
+                break
 
     # There's a funny bug, because k < L in terms of index, so
     # L is reinitialized to k which equal kLuu instead of my name
     # 
     # TODO: find a way to prevent this
-    print(chr(name[0]) + chr(name[1]) + chr(name[2]) + chr(name[3]))
+
+    for j in range(len(name)):
+        print(chr(name[j]), end='')
 
 capital = []
 small = []
 name = []
+wanted = ['L', 'u', 'u', 'k']
 
-retrieve_name(capital, small, name)
+retrieve_name(capital, small, name, wanted)
